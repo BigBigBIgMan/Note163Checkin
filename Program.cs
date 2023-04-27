@@ -5,7 +5,7 @@ using System.Text.Json;
 
 const int TIMEOUT_MS = 60_000;
 
-Conf _conf = Deserialize<Conf>(GetEnvValue("CONF"));
+Conf _conf = Deserialize<Conf>(GetEnvValue("YOUDAO"));
 HttpClient _scClient = new();
 
 #region redis
