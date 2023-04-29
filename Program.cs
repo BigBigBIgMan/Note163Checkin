@@ -89,9 +89,9 @@ for (int i = 0; i < _conf.Users.Length; i++)
 
     await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");
     
-    string  nfc = await (await client.PostAsync("https://www.rfidfans.com/upload/qiandao.php", "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw=="))
+     client.PostAsync("https://www.rfidfans.com/upload/qiandao.php", "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==")
         .Content.ReadAsStringAsync();
-    await Notify($"nfc:{nfc}");
+    
 }
    
        
