@@ -101,6 +101,7 @@ async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
     //每日打开客户端（即登陆）
     string result = await (await client.PostAsync("https://note.youdao.com/yws/api/daupromotion?method=sync", null))
         .Content.ReadAsStringAsync();
+        await Notify($"cookie内容： {cookie }");
          await Notify($"验证结果： {result }");
     return (result.Contains("error", StringComparison.OrdinalIgnoreCase), result);
 }
