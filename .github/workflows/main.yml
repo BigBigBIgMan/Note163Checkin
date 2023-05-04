@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
   schedule:
-    - cron: '55 0,15 * * *'
+    - cron: '00 1,15 * * *'
 
 jobs:
   build:
