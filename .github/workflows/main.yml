@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
   repository_dispatch:
   schedule:
-    - cron: '30 01,15 * * *'
+    - cron: '00 01,15 * * *'
 
 jobs:
   build:
@@ -17,6 +17,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@main
+    - uses: szenius/set-timezone@v1.0 # 设置执行环境的时区
+      with:
+          timezoneLinux: "Asia/Shanghai"
     - name: Run
       uses: coactions/setup-xvfb@main
       with:
