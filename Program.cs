@@ -18,7 +18,7 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
 bool isNotify = true;
-string result = "";
+string resultNotify = "";
 for (int i = 0; i < _conf.Users.Length; i++)
 {
     User user = _conf.Users[i];
@@ -88,13 +88,13 @@ for (int i = 0; i < _conf.Users.Length; i++)
            .Content.ReadAsStringAsync();
         space += Deserialize<YdNoteRsp>(result).Space;
     }
-    result += "  "+i+"："+(space / 1048576)+"M;";
+    resultNotify += "  "+i+"："+(space / 1048576)+"M;";
     await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");    
 }
    
        
 //Console.WriteLine("签到运行完毕");
-await Notify("签到结果："+result, isNotify);
+await Notify("签到结果："+resultNotify, isNotify);
 
 async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
 {
