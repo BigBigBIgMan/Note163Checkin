@@ -16,8 +16,8 @@ bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 #endregion
-await Notify("有道云笔记签到开始运行...", true);
-#Console.WriteLine("有道云笔记签到开始运行...");
+Console.WriteLine("有道云笔记签到开始运行...");
+bool isNotify = true;
 for (int i = 0; i < _conf.Users.Length; i++)
 {
     User user = _conf.Users[i];
@@ -48,6 +48,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
         Console.WriteLine("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         if (isInvalid)
         {//Cookie失效
+            isNotify = false;
             await Notify($"{title}Cookie失效，请检查登录状态！", true);
             continue;
         }
@@ -91,7 +92,8 @@ for (int i = 0; i < _conf.Users.Length; i++)
 }
    
        
-Console.WriteLine("签到运行完毕");
+#Console.WriteLine("签到运行完毕");
+await Notify("签到运行完毕", isNotify);
 
 async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
 {
