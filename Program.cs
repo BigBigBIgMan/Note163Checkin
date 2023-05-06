@@ -16,8 +16,8 @@ bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 #endregion
-
-Console.WriteLine("有道云笔记签到开始运行...");
+await Notify("有道云笔记签到开始运行...", true);
+#Console.WriteLine("有道云笔记签到开始运行...");
 for (int i = 0; i < _conf.Users.Length; i++)
 {
     User user = _conf.Users[i];
