@@ -92,7 +92,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
 }
    
        
-#Console.WriteLine("签到运行完毕");
+//Console.WriteLine("签到运行完毕");
 await Notify("签到运行完毕", isNotify);
 
 async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
