@@ -88,13 +88,13 @@ for (int i = 0; i < _conf.Users.Length; i++)
            .Content.ReadAsStringAsync();
         space += Deserialize<YdNoteRsp>(result).Space;
     }
-    resultNotify += "<br />"+i+"："+(space / 1048576)+"M;";
+    resultNotify += i+"："+(space / 1048576)+"M;";
     await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");    
 }
    
        
 //Console.WriteLine("签到运行完毕");
-await Notify("#签到结果"+resultNotify, isNotify);
+await Notify("签到结果("+resultNotify+")", isNotify);
 
 async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
 {
