@@ -56,8 +56,8 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
  
             request.Method = "POST";
             request.ContentType = "application/json";
-            //string strContent = "{ \"username\": \"xukuan\",\"passc\": \"MTIzNDU2\",\"USERID\": \"MTAwMDIxNjM2Mw==\"}";
-            string strContent = data; //参数data的格式就是上一句被注释的语句
+            string strContent = "{ \"username\": \"xukuan\",\"passc\": \"MTIzNDU2\",\"USERID\": \"MTAwMDIxNjM2Mw==\"}";
+            //string strContent = data; //参数data的格式就是上一句被注释的语句
             using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
             {
                 dataStream.Write(strContent);
