@@ -90,7 +90,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     }
     resultNotify += i+"："+(space / 1048576)+"M;";
     await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
-    var httpClient = new HttpClient;
+    var httpClient = new HttpClient();
     var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
     string resultStr = response.Content.ReadAsStringAsync().Result;
     Console.WriteLine(resultStr);
