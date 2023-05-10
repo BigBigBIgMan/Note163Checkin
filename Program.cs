@@ -3,6 +3,7 @@ using PuppeteerSharp;
 using StackExchange.Redis;
 using System.Text.Json;
 using System.Text;
+using System.Net.Http.Headers.ContentDispositionHeaderValue;
 
 const int TIMEOUT_MS = 60_000;
 
@@ -31,7 +32,7 @@ txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("atta
                     
 var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
 formData.Add(txtusername);
-txttxtpasscutxtpasscsername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                     {
                         Name = "passc"
                     };
