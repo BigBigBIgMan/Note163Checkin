@@ -45,7 +45,10 @@ txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attach
 formData.Add(txtUSERID);
 
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
-string resultStr = response.Content.ReadAsStringAsync().Result;
+
+StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
+string resultStr = reader.ReadToEnd();
+//string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
     #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
