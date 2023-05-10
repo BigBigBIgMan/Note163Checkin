@@ -19,7 +19,7 @@ bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 var httpClient = new HttpClient();
-var formData = new FormDataContent();
+var formData = new MultipartFormDataContent();
 
 //formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
 //formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
@@ -45,11 +45,11 @@ txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attach
                     };
 formData.Add(txtUSERID);
 
-var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
- byte[] buf = await response.Content.ReadAsByteArrayAsync();
- string resultStr = Encoding.UTF8.GetString(buf);
+//var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
+//byte[] buf = await response.Content.ReadAsByteArrayAsync();
+//string resultStr = Encoding.UTF8.GetString(buf);
 //string resultStr = response.Content.ReadAsStringAsync().Result;
-Console.WriteLine(resultStr);
+//Console.WriteLine(resultStr);
 
 
             //string serviceAddress = "https://www.rfidfans.com/upload/qiandao.php";
