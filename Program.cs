@@ -44,7 +44,7 @@ txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attach
                     };
 formData.Add(txtUSERID);
 
-var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", null);
+var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
 string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
    #endregion
