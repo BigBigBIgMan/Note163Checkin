@@ -15,6 +15,15 @@ IDatabase db = redis.GetDatabase();
 bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
+var httpClient = new HttpClient();
+var formData = new MultipartFormDataContent();
+formData.Add(new StringContent("xukuan"), "username");
+formData.Add(new StringContent("MTIzNDU2"), "passc");
+formData.Add(new StringContent("MTAwMDIxNjM2Mw=="), "USERID");
+var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
+string resultStr = response.Content.ReadAsStringAsync().Result;
+Console.WriteLine(resultStr);
+    
 #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
 bool isNotify = true;
