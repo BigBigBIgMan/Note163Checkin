@@ -18,7 +18,7 @@ bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 var httpClient = new HttpClient();
-var formData = new MultipartFormDataContent();
+var formData = new FormDataContent();
 
 //formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
 //formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
