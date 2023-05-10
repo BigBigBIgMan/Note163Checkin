@@ -19,9 +19,9 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 var httpClient = new HttpClient();
 var formData = new MultipartFormDataContent();
 
-#formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
-#formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
-#formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
+//formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
+//formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
+//formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
 
 var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
 txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
