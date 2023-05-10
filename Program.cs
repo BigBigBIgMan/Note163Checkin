@@ -4,6 +4,7 @@ using StackExchange.Redis;
 using System.Text.Json;
 using System.Text;
 using System.Net;
+using System.Net.Http.Headers;
 
 const int TIMEOUT_MS = 60_000;
 
