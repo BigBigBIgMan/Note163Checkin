@@ -23,7 +23,83 @@ formData.Add(new StringContent("MTAwMDIxNjM2Mw=="), "USERID");
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
 string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
-    
+    #endregion
+Console.WriteLine("有道云笔记签到开始运行...");
+bool isNotify = true;
+string resultNotify = "";
+for (int i = 0; i < _conf.Users.Length; i++)
+{
+    User user = _conf.Users[i];
+    string title = $"账号 {i + 1}: {user.Task} ";
+    Console.WriteLine($"共 {_conf.Users.Length} 个账号，正在运行{title}...");
+
+    #region 获取cookie
+
+    string cookie = string.Empty;
+    bool isInvalid = true; string result = string.Empty;
+
+    string redisKey = $"Note163_{user.Username}";
+    if (isRedis)
+    {
+        var redisValue = await db.StringGetAsync(redisKey);
+        if (redisValue.HasValue)
+        {
+            cookie = redisValue.ToString();
+            (isInvalid, result) = await IsInvalid(cookie);
+            Console.WriteLine("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+        }
+    }
+
+    if (isInvalid)
+    {
+        cookie = await GetCookie(user);
+        (isInvalid, result) = await IsInvalid(cookie);
+        Console.WriteLine("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+        if (isInvalid)
+        {//Cookie失效
+            isNotify = false;
+            await Notify($"{title}Cookie失效，请检查登录状态！", true);
+            continue;
+        }
+    }
+
+    if (isRedis)
+    {
+        Console.WriteLine($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
+    }
+
+    #endregion
+
+    using var client = new HttpClient();
+    client.DefaultRequestHeaders.Add("User-Agent", "ynote-android");
+    client.DefaultRequestHeaders.Add("Cookie", cookie);
+
+    long space = 0;
+    space += Deserialize<YdNoteRsp>(result).RewardSpace;
+    //签到
+    result = await (await client.PostAsync("https://note.youdao.com/yws/mapi/user?method=checkin", null))
+       .Content.ReadAsStringAsync();
+    space += Deserialize<YdNoteRsp>(result).Space;
+
+    //看广告
+    for (int j = 0; j < 3; j++)
+    {
+        result = await (await client.PostAsync("https://note.youdao.com/yws/mapi/user?method=adPrompt", null))
+           .Content.ReadAsStringAsync();
+        space += Deserialize<YdNoteRsp>(result).Space;
+    }
+
+    //看视频广告
+    for (int j = 0; j < 3; j++)
+    {
+        result = await (await client.PostAsync("https://note.youdao.com/yws/mapi/user?method=adRandomPrompt", null))
+           .Content.ReadAsStringAsync();
+        space += Deserialize<YdNoteRsp>(result).Space;
+    }
+    resultNotify += i+"："+(space / 1048576)+"M;";
+    await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
+   
+}
 
    
        
