@@ -24,9 +24,28 @@ formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username
 formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
 formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
 
+  //var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
+  //txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+  //                    {
+  //                        Name = "username"
+  //                    };
+  //                    
+  //var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
+  //formData.Add(txtusername);
+  //txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+  //                    {
+  //                        Name = "passc"
+  //                    };
+  //formData.Add(txtpassc);
+  //var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
+  //txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+  //                    {
+  //                        Name = "USERID"
+  //                    };
+  //formData.Add(txtUSERID);
 
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
-string resultStr = response.Content.ReadAsStringAsync().Result;
+//string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
    #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
