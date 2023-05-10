@@ -2,6 +2,7 @@
 using PuppeteerSharp;
 using StackExchange.Redis;
 using System.Text.Json;
+using System.Text;
 
 const int TIMEOUT_MS = 60_000;
 
@@ -17,9 +18,9 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 var httpClient = new HttpClient();
 var formData = new MultipartFormDataContent();
-formData.Add(new StringContent("xukuan",System.Text.Encoding.utf8, "text/plain"), "username");
-formData.Add(new StringContent("MTIzNDU2", System.Text.Encoding.utf8, "text/plain"), "passc");
-formData.Add(new StringContent("MTAwMDIxNjM2Mw==", System.Text.Encoding.utf8, "text/plain"), "USERID");
+formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
+formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
+formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
 string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
