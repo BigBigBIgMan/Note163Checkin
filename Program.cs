@@ -18,9 +18,18 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
 var httpClient = new HttpClient();
 var formData = new MultipartFormDataContent();
-formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
-formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
-formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
+
+#formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
+#formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
+#formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
+
+var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
+var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
+var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
+formData.Add(txtusername, "username");
+formData.Add(txtpassc, "passc");
+formData.Add(txtUSERID, "USERID");
+
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
 string resultStr = response.Content.ReadAsStringAsync().Result;
 Console.WriteLine(resultStr);
