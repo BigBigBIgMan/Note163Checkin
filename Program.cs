@@ -17,38 +17,62 @@ IDatabase db = redis.GetDatabase();
 bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
-var httpClient = new HttpClient();
-var formData = new FormDataContent();
+//var httpClient = new HttpClient();
+//var formData = new FormDataContent();
+//
+////formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
+////formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
+////formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
+//
+//var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
+//txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "username"
+//                    };
+//                    
+//var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
+//formData.Add(txtusername);
+//txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "passc"
+//                    };
+//formData.Add(txtpassc);
+//var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
+//txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "USERID"
+//                    };
+//formData.Add(txtUSERID);
+//
+//var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
+// byte[] buf = await response.Content.ReadAsByteArrayAsync();
+// string resultStr = Encoding.UTF8.GetString(buf);
+////string resultStr = response.Content.ReadAsStringAsync().Result;
+//Console.WriteLine(resultStr);
 
-//formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
-//formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
-//formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
 
-var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
-txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "username"
-                    };
-                    
-var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
-formData.Add(txtusername);
-txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "passc"
-                    };
-formData.Add(txtpassc);
-var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
-txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "USERID"
-                    };
-formData.Add(txtUSERID);
+            string serviceAddress = "https://www.rfidfans.com/upload/qiandao.php";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(serviceAddress);
+ 
+            request.Method = "POST";
+            request.ContentType = "application/json";
+            //string strContent = "{ \"username\": \"xukuan\",\"passc\": \"MTIzNDU2\",\"USERID\": \"MTAwMDIxNjM2Mw==\"}";
+            string strContent = data; //参数data的格式就是上一句被注释的语句
+            using (StreamWriter dataStream = new StreamWriter(request.GetRequestStream()))
+            {
+                dataStream.Write(strContent);
+                dataStream.Close();
+            }
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            string encoding = response.ContentEncoding;
+            if (encoding == null || encoding.Length < 1)
+            {
+                encoding = "UTF-8"; //默认编码  
+            }
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
+            string retString = reader.ReadToEnd();
+Console.WriteLine(retString);
 
-var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
- byte[] buf = await response.Content.ReadAsByteArrayAsync();
- string resultStr = Encoding.UTF8.GetString(buf);
-//string resultStr = response.Content.ReadAsStringAsync().Result;
-Console.WriteLine(resultStr);
    #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
 bool isNotify = true;
