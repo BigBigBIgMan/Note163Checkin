@@ -3,7 +3,7 @@ using PuppeteerSharp;
 using StackExchange.Redis;
 using System.Text.Json;
 using System.Text;
-using System.Net.Http.Headers;
+using System.Net;
 
 const int TIMEOUT_MS = 60_000;
 
