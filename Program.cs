@@ -45,8 +45,10 @@ formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"),
   //formData.Add(txtUSERID);
 
 var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
+ byte[] buf = await response.Content.ReadAsByteArrayAsync();
+ string resultStr = Encoding.UTF8.GetString(buf);
 //string resultStr = response.Content.ReadAsStringAsync().Result;
-//Console.WriteLine(resultStr);
+Console.WriteLine(resultStr);
    #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
 bool isNotify = true;
