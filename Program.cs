@@ -18,32 +18,32 @@ IDatabase db = redis.GetDatabase();
 bool isRedis = db.IsConnected("test");
 Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 
-var httpClient = new HttpClient();
-var formData = new MultipartFormDataContent();
+//var httpClient = new HttpClient();
+//var formData = new MultipartFormDataContent();
 
 //formData.Add(new StringContent("xukuan", Encoding.UTF8, "text/plain"), "username");
 //formData.Add(new StringContent("MTIzNDU2", Encoding.UTF8, "text/plain"), "passc");
 //formData.Add(new StringContent("MTAwMDIxNjM2Mw==", Encoding.UTF8, "text/plain"), "USERID");
 
-var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
-txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "username"
-                    };
-                    
-var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
-formData.Add(txtusername);
-txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "passc"
-                    };
-formData.Add(txtpassc);
-var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
-txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                    {
-                        Name = "USERID"
-                    };
-formData.Add(txtUSERID);
+//var txtusername = new ByteArrayContent(Encoding.UTF8.GetBytes("xukuan"));
+//txtusername.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "username"
+//                    };
+//                    
+//var txtpassc = new ByteArrayContent(Encoding.UTF8.GetBytes("MTIzNDU2"));
+//formData.Add(txtusername);
+//txtpassc.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "passc"
+//                    };
+//formData.Add(txtpassc);
+//var txtUSERID = new ByteArrayContent(Encoding.UTF8.GetBytes("MTAwMDIxNjM2Mw=="));
+//txtUSERID.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
+//                    {
+//                        Name = "USERID"
+//                    };
+//formData.Add(txtUSERID);
 
 //var response = await httpClient.PostAsync("https://www.rfidfans.com/upload/qiandao.php", formData);
 //byte[] buf = await response.Content.ReadAsByteArrayAsync();
@@ -73,6 +73,38 @@ formData.Add(txtUSERID);
             //StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
             //string retString = reader.ReadToEnd();
             //Console.WriteLine(retString);
+            entence = "你好吧";
+Encoding encoding = Encoding.GetEncoding("UTF-8");
+Stream outstream = null;
+            Stream instream = null;
+            StreamReader sr = null;
+                  string url = "http://1.caunion.sinaapp.com/a.php";
+            HttpWebRequest request = null;
+            HttpWebResponse response = null;
+
+// 准备请求,设置参数
+            request = WebRequest.Create(url) as HttpWebRequest;
+            request.Method = "POST";
+            request.ContentType ="application/x-www-form-urlencoded";
+           
+            byte[] data = encoding.GetBytes(url + "&sentence="+sentence);
+            request.ContentLength = data.Length;
+            outstream = request.GetRequestStream();
+            outstream.Write(data, 0, data.Length);
+            outstream.Flush();
+            outstream.Close();
+            //发送请求并获取相应回应数据
+
+
+            response = request.GetResponse() as HttpWebResponse;
+            //直到request.GetResponse()程序才开始向目标网页发送Post请求
+            instream = response.GetResponseStream();
+            sr = new StreamReader(instream, encoding);
+            //返回结果网页(html)代码
+
+
+            string content = sr.ReadToEnd();
+            Console.WriteLine(content);
 
    #endregion
 Console.WriteLine("有道云笔记签到开始运行...");
