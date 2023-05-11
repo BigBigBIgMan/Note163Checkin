@@ -86,7 +86,7 @@ Stream outstream = null;
             request.Method = "POST";
             request.ContentType ="application/x-www-form-urlencoded";
            
-            byte[] data = Encoding.UTF8.GetBytes(url + "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
+            byte[] data = Encoding.UTF8.GetBytes("username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
             request.ContentLength = data.Length;
             outstream = request.GetRequestStream();
             outstream.Write(data, 0, data.Length);
