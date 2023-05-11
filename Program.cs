@@ -73,8 +73,7 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
             //StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding(encoding));
             //string retString = reader.ReadToEnd();
             //Console.WriteLine(retString);
-            entence = "你好吧";
-Encoding encoding = Encoding.GetEncoding("UTF-8");
+//Encoding encoding = Encoding.GetEncoding("UTF-8");
 Stream outstream = null;
             Stream instream = null;
             StreamReader sr = null;
@@ -87,7 +86,7 @@ Stream outstream = null;
             request.Method = "POST";
             request.ContentType ="application/x-www-form-urlencoded";
            
-            byte[] data = encoding.GetBytes(url + "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
+            byte[] data = Encoding.UTF8.GetBytes(url + "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
             request.ContentLength = data.Length;
             outstream = request.GetRequestStream();
             outstream.Write(data, 0, data.Length);
