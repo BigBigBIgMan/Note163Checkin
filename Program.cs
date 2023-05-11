@@ -78,7 +78,7 @@ Encoding encoding = Encoding.GetEncoding("UTF-8");
 Stream outstream = null;
             Stream instream = null;
             StreamReader sr = null;
-                  string url = "http://1.caunion.sinaapp.com/a.php";
+                  string url = "https://www.rfidfans.com/upload/qiandao.php";
             HttpWebRequest request = null;
             HttpWebResponse response = null;
 
@@ -87,7 +87,7 @@ Stream outstream = null;
             request.Method = "POST";
             request.ContentType ="application/x-www-form-urlencoded";
            
-            byte[] data = encoding.GetBytes(url + "&sentence="+sentence);
+            byte[] data = encoding.GetBytes(url + "username=xukuan&passc=MTIzNDU2&USERID=MTAwMDIxNjM2Mw==");
             request.ContentLength = data.Length;
             outstream = request.GetRequestStream();
             outstream.Write(data, 0, data.Length);
