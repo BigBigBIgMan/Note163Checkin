@@ -98,7 +98,7 @@ Stream outstream = null;
             response = request.GetResponse() as HttpWebResponse;
             //直到request.GetResponse()程序才开始向目标网页发送Post请求
             instream = response.GetResponseStream();
-            sr = new StreamReader(instream, encoding);
+            sr = new StreamReader(instream, Encoding.UTF8);
             //返回结果网页(html)代码
 
 
