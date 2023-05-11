@@ -104,7 +104,7 @@ try
 }
 catch(Exception)
 {
-            Console.WriteLine("你输入的值为空");
+            Console.WriteLine("PCR532签到失败");
 }
 
    #endregion
