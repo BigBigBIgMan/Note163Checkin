@@ -119,7 +119,6 @@ for (int i = 0; i < _conf.Users.Length; i++)
     string title = $"账号 {i + 1}: {user.Task} ";
     Console.WriteLine($"共 {_conf.Users.Length} 个账号，正在运行{title}...");
     text = text + "<br />" + $"共 {_conf.Users.Length} 个账号，正在运行{title}...";
-    Console.WriteLine(text);
     #region 获取cookie
 
     string cookie = string.Empty;
