@@ -134,7 +134,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
             cookie = redisValue.ToString();
             (isInvalid, result) = await IsInvalid(cookie);
             Console.WriteLine("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
-            text =  text + "redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效";
+            text =  text +("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         }
     }
 
@@ -143,6 +143,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
         cookie = await GetCookie(user);
         (isInvalid, result) = await IsInvalid(cookie);
         Console.WriteLine("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+        text =  text + ("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         if (isInvalid)
         {//Cookie失效
             Console.WriteLine($"{title}Cookie失效，请检查登录状态！"); 
