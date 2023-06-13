@@ -108,7 +108,10 @@ Console.WriteLine("redis:{0}", isRedis ? "有效" : "无效");
 //}
 
    #endregion
+string text = "";
 Console.WriteLine("有道云笔记签到开始运行...");
+text = "有道云笔记签到开始运行...";
+
 bool isNotify = true;
 string resultNotify = "";
 for (int i = 0; i < _conf.Users.Length; i++)
@@ -116,7 +119,8 @@ for (int i = 0; i < _conf.Users.Length; i++)
     User user = _conf.Users[i];
     string title = $"账号 {i + 1}: {user.Task} ";
     Console.WriteLine($"共 {_conf.Users.Length} 个账号，正在运行{title}...");
-
+    text = text + $"共 {_conf.Users.Length} 个账号，正在运行{title}...";
+    Console.WriteLine(text);
     #region 获取cookie
 
     string cookie = string.Empty;
