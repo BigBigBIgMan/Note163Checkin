@@ -185,14 +185,14 @@ for (int i = 0; i < _conf.Users.Length; i++)
         space += Deserialize<YdNoteRsp>(result).Space;
     }
     resultNotify += i+"："+(space / 1048576)+"M;";
-    await Notify($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
+    Console.WriteLine($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
    
 }
 
    
        
 //Console.WriteLine("签到运行完毕");
-await Notify("签到结果("+resultNotify+")", isNotify);
+await Notify("签到结果("+resultNotify+")", text );
 
 async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
 {
@@ -202,8 +202,6 @@ async Task<(bool isInvalid, string result)> IsInvalid(string cookie)
     //每日打开客户端（即登陆）
     string result = await (await client.PostAsync("https://note.youdao.com/yws/api/daupromotion?method=sync", null))
         .Content.ReadAsStringAsync();
-    //await Notify($"cookie内容： {cookie }");
-    //await Notify($"验证结果： {result }");
     return (result.Contains("error", StringComparison.OrdinalIgnoreCase), result);
 }
 
@@ -267,7 +265,7 @@ async Task<string> GetCookie(User user)
 
 async Task Login(IPage page, User user)
 {
-    try
+    try 
     {
         string js = await _scClient.GetStringAsync(_conf.JsUrl);
         await page.EvaluateExpressionAsync(js.Replace("@U", user.Username).Replace("@P", user.Password));
@@ -280,13 +278,10 @@ async Task Login(IPage page, User user)
 
 bool IsLogin(IPage page) => !page.Url.Contains(_conf.LoginStr, StringComparison.OrdinalIgnoreCase);
 
-async Task Notify(string msg, bool isFailed = false)
+async Task Notify(string msg, string text)
 {
     Console.WriteLine(msg);
-    if (_conf.ScType == "Always" || (isFailed && _conf.ScType == "Failed"))
-    {
-        await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?text={msg}");
-    }
+    await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
 }
 
 T Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
