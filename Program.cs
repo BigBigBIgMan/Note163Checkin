@@ -147,7 +147,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
         if (isInvalid)
         {//Cookie失效
             Console.WriteLine($"{title}Cookie失效，请检查登录状态！"); 
-            text =  text + ""<br/>" + $"{title}Cookie失效，请检查登录状态！";
+            text =  text + "<br/>" + $"{title}Cookie失效，请检查登录状态！";
             continue;
         }
     }
