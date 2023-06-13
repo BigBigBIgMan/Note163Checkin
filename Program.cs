@@ -155,7 +155,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     if (isRedis)
     {
         Console.WriteLine($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
-        text =  text + $"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}"
+        text =  text + ($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
     }
 
     #endregion
@@ -188,7 +188,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     }
     resultNotify += i+"："+(space / 1048576)+"M;";
     Console.WriteLine($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
-    text =  text + $"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M"
+    text =  text + ($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");  
    
 }
 
