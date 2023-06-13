@@ -118,7 +118,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     User user = _conf.Users[i];
     string title = $"账号 {i + 1}: {user.Task} ";
     Console.WriteLine($"共 {_conf.Users.Length} 个账号，正在运行{title}...");
-    text = text + "<br />" + $"共 {_conf.Users.Length} 个账号，正在运行{title}...";
+    text = text + "\n\n" + $"共 {_conf.Users.Length} 个账号，正在运行{title}...";
     #region 获取cookie
 
     string cookie = string.Empty;
@@ -133,7 +133,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
             cookie = redisValue.ToString();
             (isInvalid, result) = await IsInvalid(cookie);
             Console.WriteLine("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
-            text =  text + "<br/>" + ("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+            text =  text + "\n\n" + ("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         }
     }
 
@@ -142,11 +142,11 @@ for (int i = 0; i < _conf.Users.Length; i++)
         cookie = await GetCookie(user);
         (isInvalid, result) = await IsInvalid(cookie);
         Console.WriteLine("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
-        text =  text + "<br/>" + ("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+        text =  text + "\n\n" + ("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         if (isInvalid)
         {//Cookie失效
             Console.WriteLine($"{title}Cookie失效，请检查登录状态！"); 
-            text =  text + "<br/>" + $"{title}Cookie失效，请检查登录状态！";
+            text =  text + "\n\n" + $"{title}Cookie失效，请检查登录状态！";
             continue;
         }
     }
@@ -154,7 +154,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     if (isRedis)
     {
         Console.WriteLine($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
-        text =  text + "<br/>" + ($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
+        text =  text + "\n\n" + ($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
     }
 
     #endregion
