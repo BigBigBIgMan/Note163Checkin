@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Linq;
 using PuppeteerSharp;
 using StackExchange.Redis;
 using System.Text.Json;
@@ -112,7 +112,6 @@ string text = "";
 Console.WriteLine("有道云笔记签到开始运行...");
 text = "有道云笔记签到开始运行...";
 
-bool isNotify = true;
 string resultNotify = "";
 for (int i = 0; i < _conf.Users.Length; i++)
 {
@@ -135,6 +134,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
             cookie = redisValue.ToString();
             (isInvalid, result) = await IsInvalid(cookie);
             Console.WriteLine("redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
+            text =  text + "redis获取cookie,状态:{0}", isInvalid ? "无效" : "有效";
         }
     }
 
@@ -145,8 +145,8 @@ for (int i = 0; i < _conf.Users.Length; i++)
         Console.WriteLine("login获取cookie,状态:{0}", isInvalid ? "无效" : "有效");
         if (isInvalid)
         {//Cookie失效
-            isNotify = false;
-            await Notify($"{title}Cookie失效，请检查登录状态！", true);
+            Console.WriteLine($"{title}Cookie失效，请检查登录状态！"); 
+            text =  text + $"{title}Cookie失效，请检查登录状态！";
             continue;
         }
     }
@@ -154,6 +154,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     if (isRedis)
     {
         Console.WriteLine($"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}");
+        text =  text + $"redis更新cookie:{await db.StringSetAsync(redisKey, cookie)}"
     }
 
     #endregion
@@ -186,6 +187,7 @@ for (int i = 0; i < _conf.Users.Length; i++)
     }
     resultNotify += i+"："+(space / 1048576)+"M;";
     Console.WriteLine($"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M");   
+    text =  text + $"有道云笔记{title}签到成功，共获得空间 {space / 1048576} M"
    
 }
 
