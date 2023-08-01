@@ -285,12 +285,8 @@ async Task Notify(string msg, string text)
     await pushPlusNotify(msg,text);
     Console.WriteLine(msg);
     text = text+"\n\n \n\n "+msg;
-    await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
-}
-
-async Task pushPlusNotify(string msg, string text)
-{
     await _scClient.GetAsync($"http://www.pushplus.plus/send?token={_conf.PpToken}&title={msg}&content={text}");
+    await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
 }
 
 T Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
