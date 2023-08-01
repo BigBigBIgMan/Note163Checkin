@@ -307,6 +307,7 @@ class Conf
 {
     public User[] Users { get; set; }
     public string ScKey { get; set; }
+    public string PpToken { get; set; }
     public string ScType { get; set; }
     public string RdsServer { get; set; }
     public string RdsPwd { get; set; }
