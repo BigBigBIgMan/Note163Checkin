@@ -290,8 +290,6 @@ async Task Notify(string msg, string text)
 
 async Task pushPlusNotify(string msg, string text)
 {
-    Console.WriteLine(msg);
-    text = text+"\n\n \n\n "+msg;
     await _scClient.GetAsync($"http://www.pushplus.plus/send?token={_conf.PpToken}&title={msg}&content={text}");
 }
 
