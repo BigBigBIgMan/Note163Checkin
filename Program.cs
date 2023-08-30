@@ -284,8 +284,8 @@ async Task Notify(string msg, string text)
 {
     Console.WriteLine(msg);
     text = text+"\n\n \n\n "+msg;
-    var pushplus = await _scClient.GetAsync($"http://www.pushplus.plus/send?token={_conf.PpToken}&title={msg}&content={text}");
-    var unTokenedClientResponse =  _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}").Result;
+    await _scClient.GetAsync($"http://www.pushplus.plus/send?token={_conf.PpToken}&title={msg}&content={text}");
+    await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}").Result;
 }
 
 T Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
