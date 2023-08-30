@@ -288,6 +288,10 @@ async Task Notify(string msg, string text)
    Console.WriteLine(pushplus);
     var ftqq = await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
    Console.WriteLine(ftqq);
+    var ftqq = await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
+   Console.WriteLine(ftqq);
+    var ftqq = await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
+   Console.WriteLine(ftqq);
 }
 
 T Deserialize<T>(string json) => JsonSerializer.Deserialize<T>(json, new JsonSerializerOptions
