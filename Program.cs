@@ -285,7 +285,7 @@ async Task Notify(string msg, string text)
     Console.WriteLine(msg);
     text = text+"\n\n \n\n "+msg;
     var pushplus = await _scClient.GetAsync($"http://www.pushplus.plus/send?token={_conf.PpToken}&title={msg}&content={text}");
-    var unTokenedClientResponse = await _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}");
+    var unTokenedClientResponse =  _scClient.GetAsync($"https://sc.ftqq.com/{_conf.ScKey}.send?title={msg}&desp={text}").Result;
   Console.WriteLine("Un-tokened response: {0}", unTokenedClientResponse.StatusCode);
 }
 
